@@ -182,9 +182,9 @@ class Job(object):
     def run(self):
         self.prepare()
         self.controlRun()
-        self.cd()
+        self.cd(self.folder)
         self.runScript()
-        self.cd("-")
+        self.cd()
 
 
 
