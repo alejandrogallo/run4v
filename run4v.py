@@ -51,6 +51,7 @@ class Job(object):
         self.prevDependencies = prevDependencies
         self.ABS_PATH=os.path.abspath(os.curdir)
         self.runCommand = "llsubmit"
+        self.principalFolder=os.curdir
     def __str__(self):
         return "Job %s"%self.folder
     def vprint(self, something):
@@ -163,10 +164,27 @@ class Job(object):
         if runFailure:
             raise Exception("No script '%s' to be run found in  '%s' !"%(self.script, self.folder))
             sys.exit(-1)
+    def cd(self, folder="-"):
+        if folder in [self.folder, "-"]:
+            if folder!="-":
+                destination=folder
+            else:
+                destination=self.principalFolder
+        else:
+            raise Exception("For the moment you can only change directory either to %s or to %s"%(self.folder, self.principalFolder))
+            sys.exit(-1) 
+        self.vprint("Changing directory to %s"%destination)
+        os.chdir(destination)
+    def runScript(self):
+        command = self.runCommand+" "+self.script
+        self.vprint("Running command '%s'"%command)
+        os.system(command)
     def run(self):
         self.prepare()
         self.controlRun()
-        return os.system(self.runCommand+" "+self.script)
+        self.cd()
+        self.runScript()
+        self.cd("-")
 
 
 
