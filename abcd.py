@@ -35,7 +35,7 @@ class Runner(object):
                     self.vprint("Some problem happened running the job %s"%job)
                     raise Exception(e)
                     sys.exit(-1)
-                finally:
+                else:
                     self.vprint("Running %s done!\t\033[42;93m[x]\033[0m"%job)
                     job = job.getNext()
         
@@ -57,12 +57,16 @@ class Job(object):
         if self.verbatim:
             print("\033[7;49;32m Job::\033[0m --> %s"%something)
     def setNext(self, obj):
+        """ Set next job """
         self.next=obj
     def setPrev(self, obj):
+        """ Set previous job """ 
         self.prev=obj
     def getNext(self):
+        """ Get next job """
         return self.next
     def getPrev(self):
+        """ Get previous job """ 
         return self.prev
     def setPrevDependencies(self, dependencies = {}):
         """
@@ -82,13 +86,17 @@ class Job(object):
         # Controlling previous dependencies
         self.vprint("Preparing the previous job dependencies: %s"%self.prevDependencies)        
         if self.prev:
+            # Self is not the first job of the chain
             prevFolder = self.prev.folder
         else:
+            # Self is the first job of the chain
             prevFolder = os.curdir
         for depName in self.prevDependencies: 
-            filePath = os.path.join(prevFolder,depName)
-            if os.path.exists(filePath):
-                shutil.copy(filePath, self.folder)
+            prevFilePath = os.path.join(prevFolder,depName)
+            newName = self.prevDependencies[depName]
+            filePath = os.path.join(self.folder, newName)
+            if os.path.exists(prevFilePath):
+                shutil.copy(prevFilePath, filePath)
             else:
                 raise Exception("The file %s was not found!"%filePath)
                 sys.exit(-1)
