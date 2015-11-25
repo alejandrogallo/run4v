@@ -13,7 +13,6 @@ B.setNext(C)
 C.setNext(D)
 
 runner = run4v.Runner()
-#runner.addJobs([A,B,C,D])
 runner.setFirstJob(A)
 
 runner.run()
