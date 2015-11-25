@@ -3,7 +3,7 @@
 import os, shutil, sys
 import time
 
-
+__version__="0.0.1"
 VERBATIM=True
 
 
@@ -95,6 +95,7 @@ class Job(object):
             prevFilePath = os.path.join(prevFolder,depName)
             newName = self.prevDependencies[depName]
             filePath = os.path.join(self.folder, newName)
+            self.vprint("Getting %s to destination %s for %s"%(prevFilePath, filePath, self ))
             if os.path.exists(prevFilePath):
                 shutil.copy(prevFilePath, filePath)
             else:
@@ -117,14 +118,17 @@ class Job(object):
         # Controlling dependencies
         dependenciesFailure = False
         for depName in self.dependencies:
-            filePath = os.path.join(self.folder, depName)
             if type(depName) is str:   
+                filePath = os.path.join(self.folder, depName)
                 if not os.path.exists(filePath):
                     dependenciesFailure = True
+                    break
             else:
                 if not depName.exists():
                     depName.createFile(self.folder)
-                    dependenciesFailure = True
+                    if not depName.exists():
+                        dependenciesFailure = True
+                        break
         if dependenciesFailure:
             raise Exception("The file %s was not found!"%filePath)
             sys.exit(-1)
