@@ -3,16 +3,16 @@ from common import *
 
 initDependencies = {"POSCAR":"POSCAR", "POTCAR":"POTCAR", "INCAR":"INCAR", "KPOINTS":"KPOINTS"}
 
-A = abcd.Job("run", folder="A", prevDependencies=initDependencies)
-B = abcd.Job("run", folder="B", prev=A, prevDependencies=initDependencies)
-C = abcd.Job("run", folder="C", prev=B, prevDependencies=initDependencies)
-D = abcd.Job("run", folder="D", prev=C, prevDependencies=initDependencies)
+A = run4v.Job("run", folder="A", prevDependencies=initDependencies)
+B = run4v.Job("run", folder="B", prev=A, prevDependencies=initDependencies)
+C = run4v.Job("run", folder="C", prev=B, prevDependencies=initDependencies)
+D = run4v.Job("run", folder="D", prev=C, prevDependencies=initDependencies)
 
 A.setNext(B)
 B.setNext(C)
 C.setNext(D)
 
-runner = abcd.Runner()
+runner = run4v.Runner()
 #runner.addJobs([A,B,C,D])
 runner.setFirstJob(A)
 

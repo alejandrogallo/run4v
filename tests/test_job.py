@@ -13,7 +13,7 @@ class TestGeneralSingleJob(unittest.TestCase):
         folder = "TestFolderA"
         makeDummyScript(name="run")
         prevDependencies={'INCAR_OLD':'INCAR_MOVED'}
-        self.job = abcd.Job(script="run", folder=folder, prevDependencies=prevDependencies)
+        self.job = run4v.Job(script="run", folder=folder, prevDependencies=prevDependencies)
     def tearDown(self):
         pass
 
