@@ -50,9 +50,8 @@ class Job(object):
         self.verbatim = verbatim
 	self.execute=execute
         self.prevDependencies = prevDependencies
-        self.ABS_PATH=os.path.abspath(os.curdir)
         self.runCommand = "llsubmit"
-        self.principalFolder=os.curdir
+        self.principalFolder=os.path.abspath(os.curdir)
     def __str__(self):
         return "Job %s"%self.folder
     def vprint(self, something):
@@ -60,10 +59,12 @@ class Job(object):
             print("\033[7;49;32m Job::\033[0m --> %s"%something)
     def setNext(self, obj):
         """ Set next job """
-        return self.next=obj
+        self.next=obj
+        return self.next
     def setPrev(self, obj):
         """ Set previous job """ 
-        return self.prev=obj
+        self.prev=obj
+        return self.prev
     def getNext(self):
         """ Get next job """
         return self.next
@@ -123,13 +124,13 @@ class Job(object):
             if type(depName) is str:   
                 filePath = os.path.join(self.folder, depName)
                 if not os.path.exists(filePath):
-                    dependenciesFailure = True
+                    dependenciesFailure = depName 
                     break
             else:
                 if not depName.exists():
                     depName.createFile(self.folder)
                     if not depName.exists():
-                        dependenciesFailure = True
+                        dependenciesFailure = depName 
                         break
         if dependenciesFailure:
             raise Exception("The file %s was not found!"%filePath)

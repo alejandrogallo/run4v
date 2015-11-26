@@ -1,4 +1,4 @@
-clean: 
+pyc-clean: 
 	rm ./**/*.pyc
 	rm *.pyc
 
