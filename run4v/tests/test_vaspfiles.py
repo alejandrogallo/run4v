@@ -1,6 +1,6 @@
 from common import * 
 import unittest 
-
+import run4v
 run4v.VERBATIM = False
 
 class TestVaspFile(unittest.TestCase):

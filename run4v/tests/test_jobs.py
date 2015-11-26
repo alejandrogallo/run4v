@@ -2,6 +2,8 @@
 from common import * 
 import unittest 
 
+import run4v
+
 THIS_FOLDER = os.path.split(__file__)[0]
 
 
