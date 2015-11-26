@@ -41,13 +41,14 @@ class Runner(object):
         
 
 class Job(object):
-    def __init__(self, script, folder=os.curdir, dependencies=[], prevDependencies={}, next=None, prev=None, verbatim=VERBATIM):
+    def __init__(self, script, folder=os.curdir, dependencies=[], prevDependencies={}, next=None, prev=None, verbatim=VERBATIM, execute=True):
         self.script = script
         self.folder = folder
         self.dependencies = dependencies
         self.next=next
         self.prev=prev 
         self.verbatim = verbatim
+	self.execute=execute
         self.prevDependencies = prevDependencies
         self.ABS_PATH=os.path.abspath(os.curdir)
         self.runCommand = "llsubmit"
@@ -59,10 +60,10 @@ class Job(object):
             print("\033[7;49;32m Job::\033[0m --> %s"%something)
     def setNext(self, obj):
         """ Set next job """
-        self.next=obj
+        return self.next=obj
     def setPrev(self, obj):
         """ Set previous job """ 
-        self.prev=obj
+        return self.prev=obj
     def getNext(self):
         """ Get next job """
         return self.next
@@ -180,6 +181,13 @@ class Job(object):
         self.vprint("Running command '%s'"%command)
         os.system(command)
     def run(self):
+        """ 
+        This function runs the job. If 'execute=False' then the job will not be run, maybe because you have 
+        already run it and you just want to run the next jobs
+        """
+        if not self.execute:
+            self.vprint("The job %s will not be executed"%self)
+            return 0
         self.prepare()
         self.controlRun()
         self.cd(self.folder)
