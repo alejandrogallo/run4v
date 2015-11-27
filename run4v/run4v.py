@@ -41,7 +41,7 @@ class Runner(object):
         
 
 class Job(object):
-    def __init__(self, script, folder=os.curdir, dependencies=[], prevDependencies={}, next=None, prev=None, verbatim=VERBATIM, execute=True):
+    def __init__(self, script="", folder=os.curdir, dependencies=[], prevDependencies={}, next=None, prev=None, verbatim=VERBATIM, execute=True):
         self.script = script
         self.folder = folder
         self.dependencies = dependencies
@@ -145,6 +145,9 @@ class Job(object):
         self.controlPrevDependencies()
         self.controlDependencies()
     def controlRun(self):
+        """ In the case that a run script was given, this function controls that the run script exists. """
+        if not self.script:
+            return True
         runFailure=False
         self.vprint("Preparing job for running...")
         self.vprint("Is there the run script '%s' in %s"%(self.script, self.folder))
