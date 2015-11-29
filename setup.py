@@ -8,6 +8,7 @@ setup(name="run4v",
     license="MIT",
     packages=["run4v"],
     test_suite="run4v.tests",
+    scripts=["tools/run4v"],
     zip_safe=False)
 
 #tests_require=["nose"],
