@@ -4,7 +4,7 @@ import os, shutil, sys
 import time
 
 __version__="0.0.1"
-VERBATIM=True
+VERBOSE=True
 
 
 
@@ -13,10 +13,10 @@ class Runner(object):
     Class that manages all VASP jobs. It will run the jobs one after another. 
     """
     jobs=[]
-    verbatim=VERBATIM
+    verbose=VERBOSE
     firstJob = None
     def vprint(self, something):
-        if self.verbatim:
+        if self.verbose:
             print("RUNNER:: ---> %s"%something)
     def setFirstJob(self, job):
         self.firstJob = job
@@ -41,13 +41,13 @@ class Runner(object):
         
 
 class Job(object):
-    def __init__(self, script="", folder=os.curdir, dependencies=[], prevDependencies={}, next=None, prev=None, verbatim=VERBATIM, execute=True):
+    def __init__(self, script="", folder=os.curdir, dependencies=[], prevDependencies={}, next=None, prev=None, verbose=VERBOSE, execute=True):
         self.script = script
         self.folder = folder
         self.dependencies = dependencies
         self.next=next
         self.prev=prev 
-        self.verbatim = verbatim
+        self.verbose = verbose
 	self.execute=execute
         self.prevDependencies = prevDependencies
         self.runCommand = "llsubmit"
@@ -55,7 +55,7 @@ class Job(object):
     def __str__(self):
         return "Job %s"%self.folder
     def vprint(self, something):
-        if self.verbatim:
+        if self.verbose:
             print("\033[7;49;32m Job::\033[0m --> %s"%something)
     def setNext(self, obj):
         """ Set next job """
@@ -202,16 +202,16 @@ class Job(object):
 
 
 class VASPFile(object):
-    def __init__(self, fileName = "GenericVaspFile", path=os.curdir, autogen=False, verbatim=VERBATIM):
+    def __init__(self, fileName = "GenericVaspFile", path=os.curdir, autogen=False, verbose=VERBOSE):
         self.fileName = fileName
         self.path = path
         self.autogen = autogen 
-        self.verbatim = verbatim
+        self.verbose = verbose
         self.filePath = os.path.join(self.path, self.fileName)
         if self.autogen:
             self.createFile()
     def vprint(self, something):
-        if self.verbatim:
+        if self.verbose:
             print("\033[7;49;91m%s::\033[0m >>>> %s"%(self.fileName, something))
     def getContents(self):
         return "This is a generic VaspFile"

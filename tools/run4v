@@ -1,2 +1,30 @@
 #! /usr/bin/env python
 
+import run4v
+import argparun4vrse
+
+parser = argparse.ArgumentParser()
+
+
+parser.add_argument("command", help="Input file in OUTCAR format")
+parser.add_argument("-v", "--verbose", help="Make the output verbose", action="store_true")
+parser.add_argument("--ascii", help="Print the electron configuration in ascii format", action="store_true")
+
+
+args = parser.parse_args()
+
+
+if args.verbose:
+    print("Making the output verbose...")
+    run4v.run4v.VERBOSE=True
+else:
+    run4v.run4v.VERBOSE=False
+
+diagram = run4v.Diagram(args.file)
+diagram.getConfiguration()
+
+
+if args.ascii:
+    print("Doing somethin in ascii..")
+    diagram.showASCII()
+
