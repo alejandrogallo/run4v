@@ -6,9 +6,16 @@ import argparse
 parser = argparse.ArgumentParser(description="A command line interface for run4v")
 
 
-parser.add_argument("command", help="Input file in OUTCAR format")
 parser.add_argument("-v", "--verbose", help="Make the output verbose", action="store_true")
-parser.add_argument("-f","--file", help="Print the electron configuration in ascii format", action="store", default="runner.py")
+
+
+subparsers = parser.add_subparsers(help="Sub-command help", metavar="command")
+
+run_parser = subparsers.add_parser("run", help="Command line runner: You can run individual jobs from an input 'run4v' file. ")
+run_parser.add_argument("-f","--file", help="Input file where jobs are defined, default is 'runner.py'", action="store", default="runner.py")
+run_parser.add_argument("-r", "--runner", help="The name of the runner variable in the input file. Default value is 'runner'", default="runner")
+run_parser.add_argument("-j", "--job", help="The name of the job variable in the input file that is to be run.")
+
 
 
 args = parser.parse_args()
