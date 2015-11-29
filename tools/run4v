@@ -1,14 +1,14 @@
 #! /usr/bin/env python
 
 import run4v
-import argparun4vrse
+import argparse
 
-parser = argparse.ArgumentParser()
+parser = argparse.ArgumentParser(description="A command line interface for run4v")
 
 
 parser.add_argument("command", help="Input file in OUTCAR format")
 parser.add_argument("-v", "--verbose", help="Make the output verbose", action="store_true")
-parser.add_argument("--ascii", help="Print the electron configuration in ascii format", action="store_true")
+parser.add_argument("-f","--file", help="Print the electron configuration in ascii format", action="store", default="runner.py")
 
 
 args = parser.parse_args()
@@ -16,15 +16,11 @@ args = parser.parse_args()
 
 if args.verbose:
     print("Making the output verbose...")
-    run4v.run4v.VERBOSE=True
+    run4v.VERBOSE=True
 else:
-    run4v.run4v.VERBOSE=False
-
-diagram = run4v.Diagram(args.file)
-diagram.getConfiguration()
+    run4v.VERBOSE=False
 
 
-if args.ascii:
-    print("Doing somethin in ascii..")
-    diagram.showASCII()
+if args.file:
+	print args.file
 
