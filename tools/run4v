@@ -9,7 +9,7 @@ parser = argparse.ArgumentParser(description="A command line interface for run4v
 parser.add_argument("-v", "--verbose", help="Make the output verbose", action="store_true")
 
 
-subparsers = parser.add_subparsers(help="Sub-command help", metavar="command")
+subparsers = parser.add_subparsers(help="For further information for every command, type in 'run4v <command> -h'", metavar="command")
 
 # RUNNER OPTIONS
 run_parser = subparsers.add_parser("run", help="Command line runner: You can run individual jobs from an input 'run4v' file. ")
