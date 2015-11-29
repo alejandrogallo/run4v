@@ -15,7 +15,7 @@ subparsers = parser.add_subparsers(help="For further information for every comma
 run_parser = subparsers.add_parser("run", help="Command line runner: You can run individual jobs from an input 'run4v' file. ")
 run_parser.add_argument("-f","--file", help="Input file where jobs are defined, default is 'runner.py'", action="store", default="runner.py")
 run_parser.add_argument("-r", "--runner", help="The name of the runner variable in the input file. Default value is 'runner'", default="runner")
-run_parser.add_argument("-j", "--job", help="The name of the job variable in the input file that is to be run.")
+run_parser.add_argument("-j", "--job", help="The name of the job variable in the input file that is to be run.", action="store")
 
 
 args = parser.parse_args()
@@ -27,5 +27,15 @@ if args.verbose:
 else:
     run4v.VERBOSE=False
 
+def vprint(something):
+    if run4v.VERBOSE:
+        print(something)
+
 if args.command=="run":
-    pass
+    vprint("Importing file %s..."%args.file)
+    readModule = open(args.file, "r").read()
+    exec(readModule)
+    vprint("File imported!")
+    vprint("Reading runner '%s' and job '%s'!"%(args.runner, args.job))
+    print eval(args.runner)
+    print eval(args.job)
