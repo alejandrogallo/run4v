@@ -50,3 +50,4 @@ if args.command=="run":
         sys.exit(-1)
     else:
         vprint("Running job %s..."%job)
+        job.run()
