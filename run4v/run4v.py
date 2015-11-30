@@ -32,11 +32,11 @@ class Runner(object):
                     self.vprint("Running  %s"%job)
                     job.run()
                 except Exception, e:
-                    self.vprint("Some problem happened running the job %s"%job)
+                    self.vprint("Some problem happened running the %s"%job)
                     raise Exception(e)
                     sys.exit(-1)
                 else:
-                    self.vprint("Running %s done!\t\033[42;93m[x]\033[0m"%job)
+                    self.vprint("%s done!\t\033[42;93m[x]\033[0m"%job)
                     job = job.getNext()
         
 
