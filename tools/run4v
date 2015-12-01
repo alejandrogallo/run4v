@@ -18,8 +18,17 @@ run_parser.add_argument("-f","--file", help="Input file where jobs are defined, 
 #run_parser.add_argument("-r", "--runner", help="The name of the runner variable in the input file. Default value is 'runner'", default="runner")
 run_parser.add_argument("-j", "--job", help="The name of the job variable in the input file that is to be run.", action="store")
 
+#KILL OPTIONS
+kill_parser = subparsers.add_parser("kill", help="Kill process in the directory where it was created. It simply reads the automatically generated file '.run4v_pid_<pid>' file and kills the process... ")
+
+
+#CLEAN OPTIONS
+clean_parser = subparsers.add_parser("clean", help="Clean automatically generated files such as '.run4v_pid_<pid>'")
+
+
 
 args = parser.parse_args()
+
 
 
 print(run4v.LOGO)
@@ -32,22 +41,28 @@ if args.verbose:
 else:
     run4v.VERBOSE=False
 
-def vprint(something):
-    if run4v.VERBOSE:
-        print(something)
 
 if args.command=="run":
-    vprint("Importing file %s..."%args.file)
+    run4v.vprint("Importing file %s..."%args.file)
     readModule = open(args.file, "r").read()
     exec(readModule)
-    vprint("File imported!")
-    vprint("Reading job '%s'!"%(args.job))
+    run4v.vprint("File imported!")
+    run4v.vprint("Reading job '%s'!"%(args.job))
     try:
-        vprint("Parsing job variable...")
+        run4v.vprint("Parsing job variable...")
         job = eval(args.job)
     except:
         print("ERROR: the variable %s was not found in %s"%(args.job, args.file))
         sys.exit(-1)
     else:
-        vprint("Running job %s..."%job)
+        run4v.vprint("Running job %s..."%job)
         job.run()
+elif args.command=="kill":
+    run4v.kill()
+elif args.command=="clean":
+    run4v.clean()
+
+
+
+
+

@@ -7,6 +7,41 @@ __version__="0.0.1"
 VERBOSE=True
 
 
+def vprint(something):
+    if VERBOSE:
+        print("run4v:: --> %s"%something)
+
+def clean():
+    dirs = os.listdir(os.path.abspath(os.curdir))
+    prefixs = [".run4v_pid_"]
+    for prefix in prefixs:
+        vprint("Removing files with prefix '%s'"%prefix)
+        for fileName in dirs:
+            if prefix in fileName:
+                vprint("Removing %s..."%fileName)
+                os.remove(fileName)
+
+def kill():
+    import signal
+    dirs = os.listdir(os.path.abspath(os.curdir))
+    prefix = ".run4v_pid_"
+    for fileName in dirs:
+        if prefix in fileName:
+            vprint("Found pid file %s"%fileName)
+            pidv = fileName.split(prefix) 
+            try:
+                pid = pidv[1]
+            except:
+                Exception("Error parsing pid of file %s"%fileName)
+                sys.exit(-1)
+            else:
+                vprint("Killing process %s"%pid)
+                try:
+                    os.kill(int(pid), int(signal.SIGKILL))
+                except Exception, e:
+                    vprint(e)
+
+
 
 class Runner(object):
     """ 
@@ -71,6 +106,13 @@ class Job(object):
     def getPrev(self):
         """ Get previous job """ 
         return self.prev
+    def setPidFile(self):
+        pid = os.getpid()
+        fileName = ".run4v_pid_%s"%pid
+        path = os.path.join(self.principalFolder, fileName)
+        fd = open(path, "w")
+        fd.close()
+
     def setPrevDependencies(self, dependencies = {}):
         """
             Set the dependencies we need from the prev VASPLoader object
@@ -189,6 +231,7 @@ class Job(object):
         This function runs the job. If 'execute=False' then the job will not be run, maybe because you have 
         already run it and you just want to run the next jobs
         """
+        self.setPidFile()
         if not self.execute:
             self.vprint("The job %s will not be executed"%self)
             return 0
