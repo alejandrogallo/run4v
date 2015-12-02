@@ -100,6 +100,10 @@ class Job(object):
         """ Set previous job """ 
         self.prev=obj
         return self.prev
+    def setCommand(self, cmd):
+        self.runCommand = cmd 
+    def getCommand(self):
+        return self.runCommand
     def getNext(self):
         """ Get next job """
         return self.next
