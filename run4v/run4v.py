@@ -85,6 +85,7 @@ class Job(object):
         self.verbose = verbose
 	self.execute=execute
         self.prevDependencies = prevDependencies
+        self.extDependencies = extDependencies
         self.runCommand = "llsubmit"
         self.principalFolder=os.path.abspath(os.curdir)
     def __str__(self):

@@ -1,13 +1,13 @@
 from common import * 
 import unittest 
 import run4v
-run4v.VERBATIM = False
+run4v.VERBOSE = False
 
 class TestVaspFile(unittest.TestCase):
     def setUp(self):
         self.fileName = "TEST_VASPFILE"
         self.autogen = False
-        self.vaspFile = run4v.VASPFile(fileName = self.fileName, autogen = self.autogen, verbatim=True)
+        self.vaspFile = run4v.VASPFile(fileName = self.fileName, autogen = self.autogen, verbose=True)
     def tearDown(self):
         self.assertTrue(self.vaspFile.rm()) 
     def test_createFile(self):
