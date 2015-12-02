@@ -76,7 +76,7 @@ class Runner(object):
         
 
 class Job(object):
-    def __init__(self, script="", folder=os.curdir, dependencies=[], prevDependencies={}, next=None, prev=None, verbose=VERBOSE, execute=True):
+    def __init__(self, script="", folder=os.curdir, dependencies=[], prevDependencies={}, extDependencies={}, next=None, prev=None, verbose=VERBOSE, execute=True):
         self.script = script
         self.folder = folder
         self.dependencies = dependencies
@@ -131,6 +131,21 @@ class Job(object):
         else:
             raise Exception("ERROR: %s is not a valid dependency"%depName)
             sys.exit(-1)
+    def controlExtDependencies(self):
+        self.vprint("Preparing external dependencies")
+        if self.extDependencies:
+            for depName in self.extDependencies: 
+                extFilePath = depName 
+                newName = self.prevDependencies[depName]
+                filePath = os.path.join(self.folder, newName)
+                self.vprint("Getting %s to destination %s for %s"%(extFilePath, filePath, self ))
+                if os.path.exists(extFilePath):
+                    shutil.copy(extFilePath, filePath)
+                else:
+                    raise Exception("The file %s was not found!"%filePath)
+                    sys.exit(-1)
+        else:
+            self.vprint("No external dependencies.")
     def controlPrevDependencies(self):
         # Controlling previous dependencies
         self.vprint("Preparing the previous job dependencies: %s"%self.prevDependencies)        
@@ -188,6 +203,7 @@ class Job(object):
                2.   Look at the dependencies names to see if we have all dependencies 
         """
         self.controlDirectory()
+        self.controlExtDependencies()
         self.controlPrevDependencies()
         self.controlDependencies()
     def controlRun(self):

@@ -15,7 +15,7 @@ subparsers = parser.add_subparsers(help="For further information for every comma
 # RUNNER OPTIONS
 run_parser = subparsers.add_parser("run", help="Command line runner: You can run individual jobs from an input 'run4v' file. ")
 run_parser.add_argument("-f","--file", help="Input file where jobs are defined, default is 'runner.py'", action="store", default="runner.py")
-#run_parser.add_argument("-r", "--runner", help="The name of the runner variable in the input file. Default value is 'runner'", default="runner")
+run_parser.add_argument("-r", "--runner", help="The name of the runner variable in the input file.")
 run_parser.add_argument("-j", "--job", help="The name of the job variable in the input file that is to be run.", action="store")
 run_parser.add_argument("-c", "--run-command", help="Command that should be called to run the job.", action="store")
 
