@@ -137,7 +137,7 @@ class Job(object):
         if self.extDependencies:
             for depName in self.extDependencies: 
                 extFilePath = depName 
-                newName = self.prevDependencies[depName]
+                newName = self.extDependencies[depName]
                 filePath = os.path.join(self.folder, newName)
                 self.vprint("Getting %s to destination %s for %s"%(extFilePath, filePath, self ))
                 if os.path.exists(extFilePath):
