@@ -111,6 +111,8 @@ class Job(object):
     def getPrev(self):
         """ Get previous job """ 
         return self.prev
+    def noExecute(self):
+        self.execute = False 
     def setPidFile(self):
         pid = os.getpid()
         fileName = ".run4v_pid_%s"%pid
