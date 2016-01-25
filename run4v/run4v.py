@@ -101,6 +101,8 @@ class Job(object):
         """ Set previous job """ 
         self.prev=obj
         return self.prev
+    def setFolder(self, folder):
+        self.folder=folder
     def setCommand(self, cmd):
         self.runCommand = cmd 
     def getCommand(self):

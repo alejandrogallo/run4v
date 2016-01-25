@@ -18,6 +18,7 @@ run_parser.add_argument("-f","--file", help="Input file where jobs are defined, 
 run_parser.add_argument("-r", "--runner", help="The name of the runner variable in the input file.")
 run_parser.add_argument("-j", "--job", help="The name of the job variable in the input file that is to be run.", action="store")
 run_parser.add_argument("-c", "--run-command", help="Command that should be called to run the job.", action="store")
+run_parser.add_argument("-o", "--output-folder", help="Folder of the job (only in conjunction with job flag)", action="store")
 
 #KILL OPTIONS
 kill_parser = subparsers.add_parser("kill", help="Kill process in the directory where it was created. It simply reads the automatically generated file '.run4v_pid_<pid>' file and kills the process... ")
@@ -59,6 +60,9 @@ if args.command=="run":
         if args.run_command:
             run4v.vprint("Setting command for job %s to %s"%(job, args.run_command))
             job.setCommand(args.run_command)
+        if args.output_folder:
+            run4v.vprint("Setting %s's folder equal to %s"%(job, args.output_folder))
+            job.setFolder(args.output_folder)
         run4v.vprint("Running job %s..."%job)
         job.run()
 elif args.command=="kill":
