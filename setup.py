@@ -1,7 +1,10 @@
 from setuptools import setup
 
+import run4v
+
+
 setup(name="run4v",
-    version="0.0.1",
+    version=run4v.__version__,
     description="A simple and limited VASP runner",
     url="http://github.com/alejandrogallo/run4v",
     author="Alejandro Gallo",
@@ -11,4 +14,3 @@ setup(name="run4v",
     scripts=["tools/run4v"],
     zip_safe=False)
 
-#tests_require=["nose"],

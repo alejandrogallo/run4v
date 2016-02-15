@@ -7,6 +7,7 @@ import argparse
 parser = argparse.ArgumentParser(description="A command line interface for run4v")
 
 
+parser.add_argument("--version", help="Print program version", action="store_true")
 parser.add_argument("-v", "--verbose", help="Make the output verbose", action="store_true")
 
 
@@ -36,6 +37,8 @@ args = parser.parse_args()
 print(run4v.LOGO)
 
 
+if args.version:
+    print(run4v.__version__)
 
 if args.verbose:
     print("Making the output verbose...")

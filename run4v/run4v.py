@@ -3,7 +3,6 @@
 import os, shutil, sys
 import time
 
-__version__="0.0.1"
 VERBOSE=True
 
 
@@ -44,8 +43,8 @@ def kill():
 
 
 class Runner(object):
-    """ 
-    Class that manages all VASP jobs. It will run the jobs one after another. 
+    """
+    Class that manages all VASP jobs. It will run the jobs one after another.
     """
     jobs=[]
     verbose=VERBOSE
