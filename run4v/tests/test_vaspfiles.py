@@ -26,4 +26,10 @@ class TestIncar(TestVaspFile):
         contents = self.vaspFile.getContents()
         expectedContents = "ISPIN=2\nIBRION=2\nENCUT=400"
         self.assertTrue(expectedContents in contents)
-
+    def test_getContents_with_false_value(self):
+        settings = {'ISPIN':'2', 'IBRION':2, 'ENCUT' :False}
+        fileName = 'TEST_INCAR_WITHOUT_ENCUT'
+        vaspFile = run4v.INCAR(settings, fileName = fileName)
+        vaspFile.createFile()
+        contents = vaspFile.getContents()
+        self.assertTrue("ENCUT" not in contents)
