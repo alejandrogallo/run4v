@@ -6,7 +6,10 @@
 Welcome to run4v's documentation!
 =================================
 
-Welcome to this documentation.
+Welcome to the documentation of run4v.
+
+run4v was originally conceived tu run `VASP
+<http://www.vasp.at/>`_ programs, however it can be used elsewhere.
 
 
 Class structure
