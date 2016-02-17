@@ -1,0 +1,373 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Welcome to run4v’s documentation! &mdash; run4v 0.2.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="run4v 0.2.0 documentation" href="#" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="#">run4v 0.2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="welcome-to-run4v-s-documentation">
+<h1>Welcome to run4v&#8217;s documentation!<a class="headerlink" href="#welcome-to-run4v-s-documentation" title="Permalink to this headline">¶</a></h1>
+<p>Welcome to this documentation.</p>
+</div>
+<div class="section" id="class-structure">
+<h1>Class structure<a class="headerlink" href="#class-structure" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="job-runner">
+<h2>Job runner<a class="headerlink" href="#job-runner" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="run4v.Runner">
+<em class="property">class </em><tt class="descclassname">run4v.</tt><tt class="descname">Runner</tt><a class="headerlink" href="#run4v.Runner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class managing all jobs, it will run one job after another.</p>
+<dl class="attribute">
+<dt id="run4v.Runner.firstJob">
+<tt class="descname">firstJob</tt><em class="property"> = None</em><a class="headerlink" href="#run4v.Runner.firstJob" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="run4v.Runner.getFirstJob">
+<tt class="descname">getFirstJob</tt><big>(</big><big>)</big><a class="headerlink" href="#run4v.Runner.getFirstJob" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="run4v.Runner.jobs">
+<tt class="descname">jobs</tt><em class="property"> = []</em><a class="headerlink" href="#run4v.Runner.jobs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="run4v.Runner.run">
+<tt class="descname">run</tt><big>(</big><big>)</big><a class="headerlink" href="#run4v.Runner.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the runner</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="run4v.Runner.setFirstJob">
+<tt class="descname">setFirstJob</tt><big>(</big><em>job</em><big>)</big><a class="headerlink" href="#run4v.Runner.setFirstJob" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="run4v.Runner.verbose">
+<tt class="descname">verbose</tt><em class="property"> = True</em><a class="headerlink" href="#run4v.Runner.verbose" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="run4v.Runner.vprint">
+<tt class="descname">vprint</tt><big>(</big><em>something</em><big>)</big><a class="headerlink" href="#run4v.Runner.vprint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="job-structure">
+<h2>Job structure<a class="headerlink" href="#job-structure" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="run4v.Job">
+<em class="property">class </em><tt class="descclassname">run4v.</tt><tt class="descname">Job</tt><big>(</big><em>script=''</em>, <em>folder='.'</em>, <em>dependencies=[]</em>, <em>prevDependencies={}</em>, <em>extDependencies={}</em>, <em>next=None</em>, <em>prev=None</em>, <em>verbose=True</em>, <em>execute=True</em><big>)</big><a class="headerlink" href="#run4v.Job" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="run4v.Job.cd">
+<tt class="descname">cd</tt><big>(</big><em>folder='-'</em><big>)</big><a class="headerlink" href="#run4v.Job.cd" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="run4v.Job.controlDependencies">
+<tt class="descname">controlDependencies</tt><big>(</big><big>)</big><a class="headerlink" href="#run4v.Job.controlDependencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="run4v.Job.controlDirectory">
+<tt class="descname">controlDirectory</tt><big>(</big><big>)</big><a class="headerlink" href="#run4v.Job.controlDirectory" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="run4v.Job.controlExtDependencies">
+<tt class="descname">controlExtDependencies</tt><big>(</big><big>)</big><a class="headerlink" href="#run4v.Job.controlExtDependencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="run4v.Job.controlPrevDependencies">
+<tt class="descname">controlPrevDependencies</tt><big>(</big><big>)</big><a class="headerlink" href="#run4v.Job.controlPrevDependencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="run4v.Job.controlRun">
+<tt class="descname">controlRun</tt><big>(</big><big>)</big><a class="headerlink" href="#run4v.Job.controlRun" title="Permalink to this definition">¶</a></dt>
+<dd><p>In the case that a run script was given, this function controls that the run script exists.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="run4v.Job.getCommand">
+<tt class="descname">getCommand</tt><big>(</big><big>)</big><a class="headerlink" href="#run4v.Job.getCommand" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="run4v.Job.getNext">
+<tt class="descname">getNext</tt><big>(</big><big>)</big><a class="headerlink" href="#run4v.Job.getNext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get next job</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="run4v.Job.getPath">
+<tt class="descname">getPath</tt><big>(</big><em>depName</em><big>)</big><a class="headerlink" href="#run4v.Job.getPath" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="run4v.Job.getPrev">
+<tt class="descname">getPrev</tt><big>(</big><big>)</big><a class="headerlink" href="#run4v.Job.getPrev" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get previous job</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="run4v.Job.noExecute">
+<tt class="descname">noExecute</tt><big>(</big><big>)</big><a class="headerlink" href="#run4v.Job.noExecute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="run4v.Job.prepare">
+<tt class="descname">prepare</tt><big>(</big><big>)</big><a class="headerlink" href="#run4v.Job.prepare" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Prepare data for the running of the VASP program:</dt>
+<dd><ol class="first last arabic simple">
+<li>Look at the prevDependencies to copy the needed files from the
+prev object into the folder</li>
+<li>Look at the dependencies names to see if we have all
+dependencies</li>
+</ol>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="run4v.Job.run">
+<tt class="descname">run</tt><big>(</big><big>)</big><a class="headerlink" href="#run4v.Job.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function runs the job. If &#8216;execute=False&#8217; then the job will not be
+run, maybe because you have already run it and you just want to run the
+next jobs</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="run4v.Job.runScript">
+<tt class="descname">runScript</tt><big>(</big><big>)</big><a class="headerlink" href="#run4v.Job.runScript" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="run4v.Job.setCommand">
+<tt class="descname">setCommand</tt><big>(</big><em>cmd</em><big>)</big><a class="headerlink" href="#run4v.Job.setCommand" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="run4v.Job.setFolder">
+<tt class="descname">setFolder</tt><big>(</big><em>folder</em><big>)</big><a class="headerlink" href="#run4v.Job.setFolder" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="run4v.Job.setNext">
+<tt class="descname">setNext</tt><big>(</big><em>obj</em><big>)</big><a class="headerlink" href="#run4v.Job.setNext" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function sets the next job of the current instance and also sets
+the current instance as the previous job of the &#8220;obj&#8221;. So the name is
+misleading regarding the fact that the function does more than setting
+the next job, it sets the previous job of the &#8220;obj&#8221; argument.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="run4v.Job.setPidFile">
+<tt class="descname">setPidFile</tt><big>(</big><big>)</big><a class="headerlink" href="#run4v.Job.setPidFile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="run4v.Job.setPrev">
+<tt class="descname">setPrev</tt><big>(</big><em>obj</em><big>)</big><a class="headerlink" href="#run4v.Job.setPrev" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set previous job</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="run4v.Job.setPrevDependencies">
+<tt class="descname">setPrevDependencies</tt><big>(</big><em>dependencies={}</em><big>)</big><a class="headerlink" href="#run4v.Job.setPrevDependencies" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Set the dependencies we need from the prev VASPLoader object</dt>
+<dd><dl class="first docutils">
+<dt>dependencies = {</dt>
+<dd>&#8220;prevDependencyName&#8221;:&#8221;newName&#8221;, ..</dd>
+</dl>
+<p class="last">}</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="run4v.Job.vprint">
+<tt class="descname">vprint</tt><big>(</big><em>something</em><big>)</big><a class="headerlink" href="#run4v.Job.vprint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="utils">
+<h1>Utils<a class="headerlink" href="#utils" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="automatically-generated-files">
+<h2>Automatically generated files<a class="headerlink" href="#automatically-generated-files" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="run4v.VASPFile">
+<em class="property">class </em><tt class="descclassname">run4v.</tt><tt class="descname">VASPFile</tt><big>(</big><em>raw_content=''</em>, <em>fileName='GenericVaspFile'</em>, <em>path='.'</em>, <em>autogen=False</em>, <em>verbose=True</em><big>)</big><a class="headerlink" href="#run4v.VASPFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class is the base class for all sorts of files which should be generated through 
+a python script.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>fileName</strong> (<em>str</em>) &#8211; Name to be used for the generated file.</li>
+<li><strong>raw_content</strong> (<em>str</em>) &#8211; If provided, the contents of the generated file will be raw_content.</li>
+<li><strong>path</strong> (<em>str</em>) &#8211; Path of the file to be generated.</li>
+<li><strong>autogen</strong> (<em>bool</em>) &#8211; Whether or not to generate the file as soon as the instance is created.</li>
+<li><strong>verbose</strong> (<em>bool</em>) &#8211; Whether or not output the vprint output.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="run4v.VASPFile.createFile">
+<tt class="descname">createFile</tt><big>(</big><em>path=''</em><big>)</big><a class="headerlink" href="#run4v.VASPFile.createFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate the file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<em>str</em>) &#8211; Possibility to override the path attribute of the class, if given, it resets the path of the file.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="run4v.VASPFile.exists">
+<tt class="descname">exists</tt><big>(</big><big>)</big><a class="headerlink" href="#run4v.VASPFile.exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks for the existence of the generated file, useful for scripting and debugging.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="run4v.VASPFile.getContents">
+<tt class="descname">getContents</tt><big>(</big><big>)</big><a class="headerlink" href="#run4v.VASPFile.getContents" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function should be overriden by child classes. It returns the
+contents that should be written to the generated file. Here if
+raw_content is provided it will simply return the raw_content.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="run4v.VASPFile.rm">
+<tt class="descname">rm</tt><big>(</big><big>)</big><a class="headerlink" href="#run4v.VASPFile.rm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simply remove the generated file.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="run4v.VASPFile.vprint">
+<tt class="descname">vprint</tt><big>(</big><em>something</em><big>)</big><a class="headerlink" href="#run4v.VASPFile.vprint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verbose printing, it prints <strong>something</strong> if <strong>verbose</strong> is activated.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>something</strong> (<em>all</em>) &#8211; Something to print.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Welcome to run4v&#8217;s documentation!</a></li>
+<li><a class="reference internal" href="#class-structure">Class structure</a><ul>
+<li><a class="reference internal" href="#job-runner">Job runner</a></li>
+<li><a class="reference internal" href="#job-structure">Job structure</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#utils">Utils</a><ul>
+<li><a class="reference internal" href="#automatically-generated-files">Automatically generated files</a></li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="#">run4v 0.2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2016, Alejandro Gallo.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>
