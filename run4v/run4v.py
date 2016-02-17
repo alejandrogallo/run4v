@@ -275,19 +275,38 @@ class Job(object):
 
 
 class VASPFile(object):
-    def __init__(self, fileName = "GenericVaspFile", path=os.curdir, autogen=False, verbose=VERBOSE):
-        self.fileName = fileName
-        self.path     = path
-        self.autogen  = autogen
-        self.verbose  = verbose
-        self.filePath = os.path.join(self.path, self.fileName)
+    def __init__(self, raw_content="", fileName = "GenericVaspFile", path=os.curdir, autogen=False, verbose=VERBOSE):
+        """
+
+        :param fileName: Name to be used for the generated file.
+        :type  fileName: str
+        :param raw_content: If provided, the contents of the generated file
+        will be raw_content.
+        :type  raw_content: str
+        :param path: Path of the file to be generated.
+        :type  path: str
+        :param autogen: Whether or not to generate the file as soon as the
+        instance is created.
+        :type  autogen: bool
+        :param verbose: Whether or not output the vprint output.
+        :type  verbose: bool
+        :returns: None
+
+        """
+        self.fileName    = fileName
+        self.path        = path
+        self.raw_content = raw_content
+        self.autogen     = autogen
+        self.verbose     = verbose
+        self.filePath    = os.path.join(self.path, self.fileName)
         if self.autogen:
             self.createFile()
     def vprint(self, something):
         if self.verbose:
             print("\033[7;49;91m%s::\033[0m >>>> %s"%(self.fileName, something))
     def getContents(self):
-        return "This is a generic VaspFile"
+        content = self.raw_content if self.raw_content else "This is a generic VaspFile"
+        return content
     def createFile(self, path=""):
         if path:
             self.path = path
@@ -342,13 +361,3 @@ class INCAR(VASPFile):
 
 
 
-class POSCAR(VASPFile):
-    def __init__(self, basis_atoms, basis_vectors, replication_steps, cell_atoms, basis_positions=[(0,0,0)], fileName="POSCAR", **kwargs):
-        super(POSCAR, self).__init__(fileName, **kwargs)
-        self.basis_atoms=basis_atoms
-        self.basis_vectors=basis_vectors
-        self.replication_steps=replication_steps
-        self.cell_atoms=cell_atoms
-        self.basis_positions=basis_positions
-    def getContents(self):
-        pass
