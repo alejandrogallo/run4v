@@ -6,17 +6,35 @@
 Welcome to run4v's documentation!
 =================================
 
-Contents:
-
-.. toctree::
-   :maxdepth: 2
+Welcome to this documentation.
 
 
+Class structure
+===============
 
-Indices and tables
-==================
+Job runner
+----------
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+.. autoclass:: run4v.Runner
+   :members:
+   :undoc-members:
 
+Job structure
+-------------
+
+.. autoclass:: run4v.Job
+   :members:
+   :undoc-members:
+
+
+
+
+Utils
+=====
+
+Automatically generated files
+-----------------------------
+
+.. autoclass:: run4v.VASPFile
+   :members:
+   :undoc-members:

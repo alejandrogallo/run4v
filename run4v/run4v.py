@@ -278,24 +278,24 @@ class Job(object):
 
 
 class VASPFile(object):
+    """
+
+    This class is the base class for all sorts of files which should be generated through 
+    a python script.
+
+    :param fileName: Name to be used for the generated file.
+    :type  fileName: str
+    :param raw_content: If provided, the contents of the generated file will be raw_content.
+    :type  raw_content: str
+    :param path: Path of the file to be generated.
+    :type  path: str
+    :param autogen: Whether or not to generate the file as soon as the instance is created.
+    :type  autogen: bool
+    :param verbose: Whether or not output the vprint output.
+    :type  verbose: bool
+
+    """
     def __init__(self, raw_content="", fileName = "GenericVaspFile", path=os.curdir, autogen=False, verbose=VERBOSE):
-        """
-
-        :param fileName: Name to be used for the generated file.
-        :type  fileName: str
-        :param raw_content: If provided, the contents of the generated file
-        will be raw_content.
-        :type  raw_content: str
-        :param path: Path of the file to be generated.
-        :type  path: str
-        :param autogen: Whether or not to generate the file as soon as the
-        instance is created.
-        :type  autogen: bool
-        :param verbose: Whether or not output the vprint output.
-        :type  verbose: bool
-        :returns: None
-
-        """
         self.fileName    = fileName
         self.path        = path
         self.raw_content = raw_content
@@ -305,12 +305,29 @@ class VASPFile(object):
         if self.autogen:
             self.createFile()
     def vprint(self, something):
+        """
+        Verbose printing, it prints **something** if **verbose** is activated.
+
+        :param something: Something to print.
+        :type  something: all
+        """
         if self.verbose:
             print("\033[7;49;91m%s::\033[0m >>>> %s"%(self.fileName, something))
     def getContents(self):
+        """
+        This function should be overriden by child classes. It returns the
+        contents that should be written to the generated file. Here if
+        raw_content is provided it will simply return the raw_content.
+        """
         content = self.raw_content if self.raw_content else "This is a generic VaspFile"
         return content
     def createFile(self, path=""):
+        """
+        Generate the file.
+
+        :param path: Possibility to override the path attribute of the class, if given, it resets the path of the file.
+        :type  path: str
+        """
         if path:
             self.path = path
         self.vprint("Creating file...")
@@ -325,11 +342,17 @@ class VASPFile(object):
             f.close()
             self.vprint("File created succesfully")
     def exists(self):
+        """
+        Checks for the existence of the generated file, useful for scripting and debugging.
+        """
         if os.path.exists(os.path.join(self.path, self.fileName)):
             return True
         else:
             return False
     def rm(self):
+        """
+        Simply remove the generated file.
+        """
         self.vprint("Removing file")
         if self.exists():
             try:
