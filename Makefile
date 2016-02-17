@@ -7,3 +7,7 @@ install-local:
 
 doc-html:
 	make -C doc/ html
+
+update-gh-pages:
+	@echo "Warning: Black magic in action"
+	git push origin `git subtree split --prefix doc master`:gh-pages --force
