@@ -397,7 +397,7 @@ class INCAR(VASPFile):
     def __init__(self, settings, fileName="INCAR", **kwargs ):
         # set settings before initializing before of autogen and createFile
         self.settings = settings
-        super(INCAR, self).__init__(fileName, **kwargs)
+        super(INCAR, self).__init__(fileName=fileName, **kwargs)
     def getContents(self):
         settings = self.settings
         if not type(settings) is dict:

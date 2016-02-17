@@ -1,6 +1,5 @@
 #! /usr/bin/env python
 import sys
-
 import run4v
 import argparse
 
@@ -13,19 +12,28 @@ parser.add_argument("-v", "--verbose", help="Make the output verbose", action="s
 
 subparsers = parser.add_subparsers(help="For further information for every command, type in 'run4v <command> -h'", metavar="command", dest="command")
 
-# RUNNER OPTIONS
+#########
+#  RUN  #
+#########
+
 run_parser = subparsers.add_parser("run", help="Command line runner: You can run individual jobs from an input 'run4v' file. ")
 run_parser.add_argument("-f","--file", help="Input file where jobs are defined, default is 'runner.py'", action="store", default="runner.py")
 run_parser.add_argument("-r", "--runner", help="The name of the runner variable in the input file.")
-run_parser.add_argument("-j", "--job", help="The name of the job variable in the input file that is to be run.", action="store")
+run_parser.add_argument("-j", "--job", help="The name of the job variable in the input file that is to be run. It supports multiple job variables.", nargs="+", action="store")
 run_parser.add_argument("-c", "--run-command", help="Command that should be called to run the job.", action="store")
 run_parser.add_argument("-o", "--output-folder", help="Folder of the job (only in conjunction with job flag)", action="store")
 
-#KILL OPTIONS
+##########
+#  KILL  #
+##########
+
 kill_parser = subparsers.add_parser("kill", help="Kill process in the directory where it was created. It simply reads the automatically generated file '.run4v_pid_<pid>' file and kills the process... ")
 
 
-#CLEAN OPTIONS
+###########
+#  CLEAN  #
+###########
+
 clean_parser = subparsers.add_parser("clean", help="Clean automatically generated files such as '.run4v_pid_<pid>'")
 
 
@@ -46,6 +54,7 @@ if args.verbose:
 else:
     run4v.VERBOSE=False
 
+run4v.vprint("ARGS: %s"%args)
 
 if args.command=="run":
     run4v.vprint("Importing file %s..."%args.file)
@@ -53,13 +62,15 @@ if args.command=="run":
     exec(readModule)
     run4v.vprint("File imported!")
     run4v.vprint("Reading job '%s'!"%(args.job))
-    try:
-        run4v.vprint("Parsing job variable...")
-        job = eval(args.job)
-    except:
-        print("ERROR: the variable %s was not found in %s"%(args.job, args.file))
-        sys.exit(-1)
-    else:
+    jobs = []
+    for job in args.job:
+        jobs.append(eval(job))
+        try:
+            run4v.vprint("Parsing job variable: %s"%job)
+        except:
+            print("ERROR: the variable %s was not found in %s"%(job, args.file))
+            sys.exit(-1)
+    for job in jobs:
         if args.run_command:
             run4v.vprint("Setting command for job %s to %s"%(job, args.run_command))
             job.setCommand(args.run_command)
