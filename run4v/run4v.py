@@ -75,6 +75,15 @@ class Runner(object):
 
 
 class Job(object):
+    """
+
+    This class is the main core of the module, each job must instantiate a Job object.
+
+    :param folder: Where the job should be run and where all dependencies and output should appear.
+    :type  folder: str
+
+
+    """
     def __init__(self, script="", folder=os.curdir, dependencies=[], prevDependencies={}, extDependencies={}, next=None, prev=None, verbose=VERBOSE, execute=True):
         self.script = script
         self.folder = folder
@@ -88,6 +97,9 @@ class Job(object):
         self.runCommand = "llsubmit"
         self.principalFolder=os.path.abspath(os.curdir)
     def __str__(self):
+        """
+        Human readable printing of the job.
+        """
         return "Job %s"%self.folder
     def vprint(self, something):
         if self.verbose:
@@ -98,25 +110,39 @@ class Job(object):
         the current instance as the previous job of the "obj". So the name is
         misleading regarding the fact that the function does more than setting
         the next job, it sets the previous job of the "obj" argument.
+
+        :param obj: Next job.
+        :type  obj: Instance of run4v.Job.
+
         """
         self.next=obj
         obj.setPrev(self)
         return self.next
     def setPrev(self, obj):
-        """ Set previous job """
+        """
+        :param obj: Next job.
+        :type  obj: Instance of run4v.Job.
+        """
         self.prev=obj
         return self.prev
     def setFolder(self, folder):
+        """
+        Change folder after initializing.
+        """
         self.folder=folder
     def setCommand(self, cmd):
         self.runCommand = cmd
     def getCommand(self):
         return self.runCommand
     def getNext(self):
-        """ Get next job """
+        """
+        Get next job
+        """
         return self.next
     def getPrev(self):
-        """ Get previous job """
+        """
+        Get previous job
+        """
         return self.prev
     def noExecute(self):
         self.execute = False
@@ -129,7 +155,7 @@ class Job(object):
 
     def setPrevDependencies(self, dependencies = {}):
         """
-        Set the dependencies we need from the prev VASPLoader object
+        Set the dependencies we need from the previous job
             dependencies = {
                 "prevDependencyName":"newName", ..
             }
@@ -280,7 +306,7 @@ class Job(object):
 class VASPFile(object):
     """
 
-    This class is the base class for all sorts of files which should be generated through 
+    This class is the base class for all sorts of files which should be generated through
     a python script.
 
     :param fileName: Name to be used for the generated file.
