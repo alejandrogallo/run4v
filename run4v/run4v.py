@@ -44,7 +44,7 @@ def kill():
 
 class Runner(object):
     """
-    Class that manages all VASP jobs. It will run the jobs one after another.
+    Class managing all jobs, it will run one job after another.
     """
     jobs=[]
     verbose=VERBOSE
@@ -129,10 +129,10 @@ class Job(object):
 
     def setPrevDependencies(self, dependencies = {}):
         """
-            Set the dependencies we need from the prev VASPLoader object
-                dependencies = {
-                    "prevDependencyName":"newName", ..
-                }
+        Set the dependencies we need from the prev VASPLoader object
+            dependencies = {
+                "prevDependencyName":"newName", ..
+            }
         """
         self.prevDependencies = dependencies
     def getPath(self, depName):
@@ -208,9 +208,11 @@ class Job(object):
             sys.exit(-1)
     def prepare(self):
         """
-            Prepare data for the running of the VASP program:
-               1.   Look at the prevDependencies to copy the needed files from the prev object into the folder
-               2.   Look at the dependencies names to see if we have all dependencies
+        Prepare data for the running of the VASP program:
+           1.   Look at the prevDependencies to copy the needed files from the
+                prev object into the folder
+           2.   Look at the dependencies names to see if we have all
+                dependencies
         """
         self.controlDirectory()
         self.controlExtDependencies()
@@ -258,8 +260,9 @@ class Job(object):
         os.system(command)
     def run(self):
         """
-        This function runs the job. If 'execute=False' then the job will not be run, maybe because you have
-        already run it and you just want to run the next jobs
+        This function runs the job. If 'execute=False' then the job will not be
+        run, maybe because you have already run it and you just want to run the
+        next jobs
         """
         self.setPidFile()
         if not self.execute:
