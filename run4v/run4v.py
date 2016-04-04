@@ -3,7 +3,7 @@
 import os, shutil, sys
 import time
 
-VERBOSE=True
+VERBOSE=False
 
 
 def vprint(something):
@@ -91,7 +91,7 @@ class Job(object):
         self.next=next
         self.prev=prev
         self.verbose = verbose
-	self.execute=execute
+        self.execute=execute
         self.prevDependencies = prevDependencies
         self.extDependencies = extDependencies
         self.runCommand = "llsubmit"
@@ -146,6 +146,47 @@ class Job(object):
         return self.prev
     def noExecute(self):
         self.execute = False
+    def setIncar(self, settings):
+        """
+        This function gets a dict of settings for override the INCAR file which is
+        going to be generated.
+
+        :settings: Dict of settings
+        :returns: True if everything went well, False otherwise.
+
+        """
+        incar=False
+        self.vprint("Setting incar with settings %s"%settings)
+        for dep in self.dependencies:
+            if dep.type=="INCAR":
+                self.vprint("INCAR found in dependencies")
+                incar = dep
+        if incar:
+            incar.setSettings = settings
+            return True
+        else:
+            self.vprint("INCAR not found in dependencies, creating one for the job %s"%self)
+            incar=INCAR(settings = settings)
+            self.appendDependency(incar)
+            return True
+    def updateIncar(self, settings):
+        """
+        This function gets a dict of settings for override the INCAR file which is
+        going to be generated.
+
+        :settings: Dict of settings
+        :returns: True if everything went well, False otherwise.
+
+        """
+        self.vprint("Updating incar with settings %s"%settings)
+        for dep in self.dependencies:
+            if dep.type=="INCAR":
+                print("INCAR FOUND")
+                self.vprint("INCAR found in dependencies")
+                for setting in settings:
+                    dep.setSetting(setting, settings[setting])
+                return True
+        return self.setIncar(settings)
     def setPidFile(self):
         pid = os.getpid()
         fileName = ".run4v_pid_%s"%pid
@@ -153,6 +194,14 @@ class Job(object):
         fd = open(path, "w")
         fd.close()
 
+    def appendDependency(self, dependency):
+        """TODO: Docstring for appendDependency.
+
+        :dependency: TODO
+        :returns: TODO
+
+        """
+        self.dependencies.append(dependency)
     def setPrevDependencies(self, dependencies = {}):
         """
         Set the dependencies we need from the previous job
@@ -324,6 +373,7 @@ class VASPFile(object):
     def __init__(self, raw_content="", fileName = "GenericVaspFile", path=os.curdir, autogen=False, verbose=VERBOSE):
         self.fileName    = fileName
         self.path        = path
+        self.type        = "GENERIC"
         self.raw_content = raw_content
         self.autogen     = autogen
         self.verbose     = verbose
@@ -398,6 +448,26 @@ class INCAR(VASPFile):
         # set settings before initializing before of autogen and createFile
         self.settings = settings
         super(INCAR, self).__init__(fileName=fileName, **kwargs)
+        self.type="INCAR"
+    def setSettings(self, new_settings):
+        """
+        Just rewrite settings completely
+
+        :new_settings: TODO
+        :returns: TODO
+
+        """
+        sefl.settings = new_settings
+    def setSetting(self, key, value):
+        """
+        Just override a key of the settings value
+
+        :key: TODO
+        :value: TODO
+        :returns: TODO
+
+        """
+        self.settings[key]=value
     def getContents(self):
         settings = self.settings
         if not type(settings) is dict:

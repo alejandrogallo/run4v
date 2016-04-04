@@ -22,6 +22,8 @@ run_parser.add_argument("-r", "--runner", help="The name of the runner variable 
 run_parser.add_argument("-j", "--job", help="The name of the job variable in the input file that is to be run. It supports multiple job variables.", nargs="+", action="store")
 run_parser.add_argument("-c", "--run-command", help="Command that should be called to run the job.", action="store")
 run_parser.add_argument("-o", "--output-folder", help="Folder of the job (only in conjunction with job flag)", action="store")
+run_parser.add_argument("--set-incar", help="Pass in an INCAR file in json format.", action="store")
+run_parser.add_argument("--update-incar", help="Pass in INCAR parameters in json format to update the already defined INCAR file.", action="store")
 
 ##########
 #  KILL  #
@@ -56,6 +58,10 @@ else:
 
 run4v.vprint("ARGS: %s"%args)
 
+#########
+#  RUN  #
+#########
+
 if args.command=="run":
     run4v.vprint("Importing file %s..."%args.file)
     readModule = open(args.file, "r").read()
@@ -77,10 +83,24 @@ if args.command=="run":
         if args.output_folder:
             run4v.vprint("Setting %s's folder equal to %s"%(job, args.output_folder))
             job.setFolder(args.output_folder)
+        if args.set_incar:
+            import json
+            incar_settings = json.loads(args.set_incar)
+            job.setIncar(incar_settings)
+        if args.update_incar:
+            import json
+            incar_settings = json.loads(args.update_incar)
+            job.updateIncar(incar_settings)
         run4v.vprint("Running job %s..."%job)
         job.run()
+##########
+#  kill  #
+##########
 elif args.command=="kill":
     run4v.kill()
+##########
+#  clean  #
+##########
 elif args.command=="clean":
     run4v.clean()
 
