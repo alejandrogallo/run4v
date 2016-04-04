@@ -24,6 +24,7 @@ run_parser.add_argument("-c", "--run-command", help="Command that should be call
 run_parser.add_argument("-o", "--output-folder", help="Folder of the job (only in conjunction with job flag)", action="store")
 run_parser.add_argument("--set-incar", help="Pass in an INCAR file in json format.", action="store")
 run_parser.add_argument("--update-incar", help="Pass in INCAR parameters in json format to update the already defined INCAR file.", action="store")
+run_parser.add_argument("-x", "--execute-code", help="Pass in python code to be evaluated after the reading in of the runner file.", action="store")
 
 ##########
 #  KILL  #
@@ -91,6 +92,8 @@ if args.command=="run":
             import json
             incar_settings = json.loads(args.update_incar)
             job.updateIncar(incar_settings)
+        if args.execute_code:
+            exec(args.execute_code)
         run4v.vprint("Running job %s..."%job)
         job.run()
 ##########

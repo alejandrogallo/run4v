@@ -1,7 +1,7 @@
 from run4v import * 
 
 
-__version__="0.3.1"
+__version__="0.4.0"
 
 
 LOGO="""
